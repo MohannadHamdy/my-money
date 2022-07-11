@@ -1,12 +1,18 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { blueGrey, brown } from "@mui/material/colors";
-
+import { useAuth } from "./hooks/useAuth";
 const App = () => {
+  const { authIsReady, user } = useAuth();
+  const RequireAuth = ({ children }) => {
+    return user ? children : <Navigate to="/login" />;
+  };
+  const RequireLoggedOut = ({ children }) => {
+    return !user ? children : <Navigate to="/" />;
+  };
   const theme = createTheme({
     palette: {
       primary: {
@@ -21,12 +27,37 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        {authIsReady && (
+          <>
+            <Navbar />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <RequireAuth>
+                    <Home />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <RequireLoggedOut>
+                    <Login />
+                  </RequireLoggedOut>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <RequireLoggedOut>
+                    <Signup />
+                  </RequireLoggedOut>
+                }
+              />
+            </Routes>
+          </>
+        )}
       </div>
     </ThemeProvider>
   );

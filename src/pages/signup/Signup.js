@@ -2,6 +2,7 @@ import "./signup.scss";
 import { motion } from "framer-motion";
 import { Typography, Container, TextField, Button, Box } from "@mui/material";
 import { useState } from "react";
+import useSignUp from "../../hooks/useSignUp";
 
 const formVariants = {
   hidden: {
@@ -21,13 +22,14 @@ const formVariants = {
 };
 
 const Signup = () => {
-  const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { signup, error, outcome, isPending } = useSignUp();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(username, password, email);
+    signup(email, password, displayName);
   };
 
   return (
@@ -51,13 +53,13 @@ const Signup = () => {
         >
           <form className="signupForm">
             <TextField
-              id="username"
-              label="Username"
+              id="displayName"
+              label="Display Name"
               variant="outlined"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setDisplayName(e.target.value);
               }}
-              value={username}
+              value={displayName}
             />
             <TextField
               id="email"
@@ -85,10 +87,31 @@ const Signup = () => {
               size="large"
               type="submit"
               onClick={handleLogin}
+              disabled={isPending}
             >
               Register
             </Button>
           </form>
+          {error && (
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ margin: "1em 0" }}
+              align="center"
+            >
+              {error}
+            </Typography>
+          )}
+          {outcome && (
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ margin: "1em 0" }}
+              align="center"
+            >
+              {outcome}
+            </Typography>
+          )}
         </Box>
       </Container>
     </motion.div>

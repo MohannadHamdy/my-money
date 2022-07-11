@@ -2,6 +2,7 @@ import "./login.scss";
 import { motion } from "framer-motion";
 import { Typography, Container, TextField, Button, Box } from "@mui/material";
 import { useState } from "react";
+import useLogin from "../../hooks/useLogin";
 
 const formVariants = {
   hidden: {
@@ -21,12 +22,14 @@ const formVariants = {
 };
 
 const Login = () => {
-  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const { login, error, isPending, outcome } = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(username, password);
+
+    login(email, password);
   };
 
   return (
@@ -50,11 +53,12 @@ const Login = () => {
         >
           <form className="loginForm">
             <TextField
-              id="username"
-              label="Username"
+              id="email"
+              label="Email"
               variant="outlined"
+              type="email"
               onChange={(e) => {
-                setUsername(e.target.value);
+                setEmail(e.target.value);
               }}
             />
 
@@ -73,10 +77,31 @@ const Login = () => {
               size="large"
               type="submit"
               onClick={handleLogin}
+              disabled={isPending}
             >
               Login
             </Button>
           </form>
+          {error && (
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ margin: "1em 0" }}
+              align="center"
+            >
+              {error}
+            </Typography>
+          )}
+          {outcome && (
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ margin: "1em 0" }}
+              align="center"
+            >
+              {outcome}
+            </Typography>
+          )}
         </Box>
       </Container>
     </motion.div>
