@@ -1,0 +1,7 @@
+name,imageUrl,profileUrl,dept,positionName,id,parentId
+Lewis Raymond Taylor,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/cto.jpg,http://example.com/employee/profile,Head,Chief Executive Officer,O-6066,
+Davolio Nancy,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg,http://example.com/employee/profile,Tech,CTO,O-6067,O-6066
+Moe Hamdy,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg,http://example.com/employee/profile,Tech,Tech Manager,O-6068,O-6067
+Gaurav Mittal,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg,http://example.com/employee/profile,tech,Tech Dev,O-6069,O-6068
+Ryan Fulgar,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg,http://example.com/employee/profile,tech,Tech Dev,O-6070,O-6068
+Emad Hamdy,https://raw.githubusercontent.com/bumbeishvili/Assets/master/Projects/D3/Organization%20Chart/general.jpg,http://example.com/employee/profile,tech,Tech Assistant,O-6070,O-6068
